@@ -33,4 +33,14 @@ public class MainController {
 		m.addAttribute("goodsList", goodsList);
 		return "main";
 	}
+	
+	@GetMapping("/goodsRetrieve")
+	public String goodsRetrieve(@RequestParam("gCode") String gCode,
+			           ModelMap m) {
+		
+		GoodsDTO goodsRetrieve = goodsService.goodsRetrieve(gCode);
+		m.addAttribute("goodsRetrieve", goodsRetrieve);
+		return "goodsRetrieve";
+	}
+	
 }
