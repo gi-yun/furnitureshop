@@ -8,22 +8,32 @@
                         <div class="navbar-collapse">
                             <ul class="navbar-nav">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="main?gCategory=top">top</a>
+                                    <a class="nav-link" href="main?gCategory=bad">bad</a>
                                 </li>
                             </ul>
                             <ul class="navbar-nav">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="main?gCategory=dress">dress</a>
+                                    <a class="nav-link" href="main?gCategory=cabinet">cabinet</a>
                                 </li>
                             </ul>
                               <ul class="navbar-nav">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="main?gCategory=outer">outer</a>
+                                    <a class="nav-link" href="main?gCategory=chiffonier">chiffonier</a>
                                 </li>
                             </ul>
                               <ul class="navbar-nav">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="main?gCategory=bottom">bottom</a>
+                                    <a class="nav-link" href="main?gCategory=closet">closet</a>
+                                </li>
+                            </ul>
+                             <ul class="navbar-nav">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="main?gCategory=mattress">mattress</a>
+                                </li>
+                            </ul>
+                             <ul class="navbar-nav">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="main?gCategory=sofa">sofa</a>
                                 </li>
                             </ul>
                         </div>
