@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.exam.mapper.CartMapper">
+ 
+    <!-- 장바구니 저장 -->
+    <insert id="cartAdd" parameterType="CartDTO">
+       insert into cart (userid, gCode, gSize, gColor, gAmount)
+       values (#{userid}, #{gCode}, #{gSize}, #{gColor}, #{gAmount} )
+    </insert>
+    <!-- 조인 -->
+    <resultMap type="CartDTO" id="yyy">
+       <id  property="num" column="num"/>
+       <result property="userid"  column="userid"/>
+       <result property="gCode"  column="gCode"/>
+       <result property="gSize"  column="gSize"/>
+       <result property="gColor"  column="gColor"/>
+       <result property="gAmount"  column="gAmount"/>
+       <result property="gCartDate"  column="gCartDate"/>
+     <!-- 1:N -->
+     <collection property="goodsList" ofType="java.util.Map">
+        <id  property="gCode" column="gCode"/>
+    <result property="gCategory"  column="gCategory"/>
+    <result property="gName"  column="gName"/>
+    <result property="gContent"  column="gContent"/>
+    <result property="gPrice"  column="gPrice"/>
+    <result property="gImage"  column="gImage"/>
+     </collection> 
+   </resultMap>
+    
+    
+    <select id="cartList" parameterType="string" resultMap="yyy">
+       select *
+       from cart join goods on cart.gCode = goods.gCode
+       where userid=#{userid}
+    </select>
+    
+    
+    
+    
+</mapper>
+
+
