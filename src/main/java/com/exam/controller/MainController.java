@@ -26,11 +26,21 @@ public class MainController {
 
 
 	@GetMapping("/main")
-	public String main(@RequestParam(required = false, defaultValue = "top") String gCategory,
+	public String main(@RequestParam(required = false, defaultValue = "bad") String gCategory,
 			           ModelMap m) {
 		
 		List<GoodsDTO> goodsList = goodsService.goodsList(gCategory);
 		m.addAttribute("goodsList", goodsList);
 		return "main";
 	}
+	
+	@GetMapping("/goodsRetrieve")
+	public String goodsRetrieve(@RequestParam("gCode") String gCode,
+			           ModelMap m) {
+		
+		GoodsDTO goodsRetrieve = goodsService.goodsRetrieve(gCode);
+		m.addAttribute("goodsRetrieve", goodsRetrieve);
+		return "goodsRetrieve";
+	}
+	
 }

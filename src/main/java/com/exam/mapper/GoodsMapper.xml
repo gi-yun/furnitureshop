@@ -17,7 +17,7 @@
      where gCategory = #{gCategory}
    </select>
    
-   <!-- 상품 자세히고비 -->
+   <!-- 상품 자세히 보기 -->
    <select id="goodsRetrieve" parameterType="string" resultType="GoodsDTO">
      select gCode,
             gCategory,
