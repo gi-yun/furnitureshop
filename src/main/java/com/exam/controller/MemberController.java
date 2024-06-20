@@ -1,6 +1,7 @@
 package com.exam.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -106,10 +108,55 @@ public class MemberController {
 			   logger.info("logger:cartlist:{}", cartList);
 		   }else {
 			   nextPage="login"; 
-		   }
+		}
+			   
+		   
 		
 		return nextPage;
 	}
+	
+//	@PostMapping("/cartAdd")
+//	public String cartAdd(@ModelAttribute CartDTO cartDTO, ModelMap m, BindingResult result) {
+//		MemberDTO dto = (MemberDTO)m.getAttribute("login");
+//		logger.info("logger:mypage:{}", dto);
+//		String nextPage=null;
+//		
+//		if(result.hasErrors()) {
+//			return "redirect:main";
+//		}
+//		int n = cartService.cartAdd(cartDTO);
+//		logger.info("logger:mypage:{}", cartDTO);
+//
+//		
+//		return "redirect:main";
+//	}
+	
+	
+	@PostMapping("/cartAdd")
+	public String cartAdd(@ModelAttribute CartDTO cartDTO, ModelMap m, BindingResult result) {
+	    // 세션에 저장된 MemberDTO 얻기
+	    MemberDTO memberDTO = (MemberDTO) m.getAttribute("login");
+	  
+	    
+	    if (memberDTO != null) {
+	        cartDTO.setUserid(memberDTO.getUserid());
+	        logger.info("logger:userid:{}", memberDTO);
+	    } else {
+	        // 로그인 정보가 없으면 메인 페이지로 리다이렉트
+	        return "redirect:main";
+	    }
+	    
+	    
+
+	    if (result.hasErrors()) {
+	        return "redirect:main";
+	    }
+	    
+	    int n = cartService.cartAdd(cartDTO);
+	    logger.info("logger:cartAdd:{}", cartDTO);
+	    return "redirect:main";
+	}
+	
 	
 	
 	

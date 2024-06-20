@@ -4,7 +4,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
  
   <div class="TodoApp">
-   >>>${cartList}
     <div class="container">
             <div>
                 <table class="table">
