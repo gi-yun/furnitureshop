@@ -11,6 +11,14 @@
       from member
       where userid=#{userid}
    </select>
+   
+    <!-- findId -->
+   <select id="findId" parameterType="string" resultType="MemberDTO">
+      select *
+      from member
+      where userid=#{userid}
+   </select>
+   
  
    <!-- 회원가입 -->
   	<insert id="memberAdd" parameterType="MemberDTO">

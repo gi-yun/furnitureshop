@@ -5,10 +5,10 @@
 	
 	$(document).ready(function(){
 	
-		// 회원가입 서브밋
+		
 		$("form").on("submit", function(){
 			alert("login submit");
-			this.action="login";  
+			this.action="auth";  
 			this.method="post";
 		});
 		
@@ -17,7 +17,7 @@
 </script>
 
 <div class="container">
-    <form class="row g-3 m-4">
+    <form method ="post" action="auth" class="row g-3 m-4">
           <div class="row mb-3">
 		      <div>${errorMessage}</div>
 		  </div>  
