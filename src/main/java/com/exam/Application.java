@@ -11,6 +11,6 @@ public class Application {
 		SpringApplication.run(Application.class, args);
 	}
 
-	
+	//충돌 테스트
 
 }
