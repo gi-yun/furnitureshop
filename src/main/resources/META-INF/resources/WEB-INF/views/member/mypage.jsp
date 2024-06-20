@@ -4,6 +4,7 @@
     
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="container">
+>>>>>${login}
     <form class="row g-3 m-4">
 		  <div class="row mb-3">
 		    <label for="userid" class="col-sm-2 col-form-label">	아이디</label>
