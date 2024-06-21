@@ -6,12 +6,15 @@ import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -57,7 +60,7 @@ public class MemberController {
 		m.addAttribute("memberDTO", dto);
 
 		return "memberForm";
-	}
+	}// @GetMapping("/idCheck")
 
 	// 회원가입 post 정보 가져오기
 	@PostMapping("/signup")
@@ -74,7 +77,7 @@ public class MemberController {
 		int n = memberService.memberAdd(dto);
 
 		return "redirect:main";
-	}
+	}// @PostMapping("/signup")
 
 	@GetMapping("/mypage")
 	public String mypage(ModelMap m) {
@@ -94,8 +97,9 @@ public class MemberController {
 		m.addAttribute("login", searchDTO);
 
 		return "mypage";
-	}
+	}// @GetMapping("/mypage")
 
+	// 장바구니 목록 가져오기
 	@GetMapping("/cartList")
 	public String cartlist(ModelMap m) {
 
@@ -125,7 +129,7 @@ public class MemberController {
 		logger.info("logger:cartList:{}", cartList);
 
 		return "cartList";
-	}
+	}// @GetMapping("/cartList")
 
 //	@PostMapping("/cartAdd")
 //	public String cartAdd(@ModelAttribute CartDTO cartDTO, ModelMap m, BindingResult result) {
@@ -161,24 +165,23 @@ public class MemberController {
 		int n = cartService.cartAdd(cartDTO);
 		logger.info("logger:cartAdd:{}", cartDTO);
 		return "redirect:main";
-	}
+	}// @PostMapping("/cartAdd")
 
-//	@PostMapping("/cartDelte")
-//	public String cartDelte(@ModelAttribute CartDTO cartDTO, ModelMap m, BindingResult result) {
-//		CartDTO dto = 
-//		int num = dto.getUserid();
-//
-//		cartDTO.setNum(dto.());
-//		logger.info("logger:userid:{}", dto);
-//
-//		if (result.hasErrors()) {
-//			return "redirect:main";
-//		}
-//		
-//		int n = cartService.cartDelte(cartDTO);
-//		logger.info("logger:cartAdd:{}", cartDTO);
-//		
-//		return "redirect:mypage";
-//	}
+	@PostMapping("/cartDelete")
+	public ResponseEntity<String> cartDelete(@RequestParam("num") int num) {
+		
+		logger.info("콘솔 확인 : num ", num);
+		try {
+			int result = cartService.cartDelete(num);
+			if (result > 0) {
+				return ResponseEntity.ok("Success");
+			} else {
+				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed");
+			}
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Exception");
+		}
 
-}
+	}// @DeleteMapping("/cartDelete")
+
+} // public class
