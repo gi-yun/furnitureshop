@@ -40,5 +40,10 @@ public class CartServiceImpl implements CartService{
 		return cartMapper.cartDelete(num);
 	}
 
+	@Override
+	public int cartDeleteAll(List<Integer> nums) {
+		return cartMapper.cartDeleteAll(nums);
+	}
+
 
 }

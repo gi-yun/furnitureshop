@@ -41,9 +41,16 @@
     <delete id="cartDelete" parameterType="int">
     DELETE FROM cart
     WHERE num = #{num}
-</delete>
+	</delete>
     
-    
+    <!-- 장바구니 다중 제거 -->
+    <delete id="cartDeleteAll" parameterType="list">
+        DELETE FROM cart
+        WHERE num IN 
+        <foreach collection="list" item="num" open="(" separator="," close=")">
+            #{num}
+        </foreach>
+    </delete>
     
     
     
