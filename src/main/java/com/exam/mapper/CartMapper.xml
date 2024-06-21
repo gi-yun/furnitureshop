@@ -38,6 +38,13 @@
     </select>
     
     
+    <delete id="cartDelte" parameterType="int">
+    DELETE FROM cart
+    WHERE num = #{num}
+</delete>
+    
+    <!-- 장바구니 제거 -->
+    
     
     
 </mapper>
