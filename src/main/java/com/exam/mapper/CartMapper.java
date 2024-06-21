@@ -11,5 +11,6 @@ import com.exam.dto.CartDTO;
 public interface CartMapper {
 
 	public int cartAdd(CartDTO cartdto);
-	public List<CartDTO> cartList(String userid);  
+	public List<CartDTO> cartList(String userid);
+	public int cartDelte(int num);
 }

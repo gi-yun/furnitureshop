@@ -23,86 +23,82 @@ import com.exam.dto.MemberDTO;
 import com.exam.service.CartService;
 import com.exam.service.MemberService;
 
-
 @Controller
 //@SessionAttributes(names = {"login"})
 public class MemberController {
-	
+
 	Logger logger = LoggerFactory.getLogger(getClass());
-	
+
 	MemberService memberService;
 	CartService cartService;
-	
-	
+
 	public MemberController(MemberService memberService, CartService cartService) {
 		super();
 		this.memberService = memberService;
 		this.cartService = cartService;
 	}
 
-	//아이디 중복 체크
+	// 아이디 중복 체크
 	@GetMapping("/idCheck")
-	public @ResponseBody  String idCheck(@RequestParam String userid) {
+	public @ResponseBody String idCheck(@RequestParam String userid) {
 		MemberDTO dto = memberService.idCheck(userid);
 		String mesg = "사용가능";
-		if(dto!=null) {
+		if (dto != null) {
 			mesg = "사용불가";
 		}
 		return mesg;
 	}
-	
-	//회원가입 get
-	@GetMapping(value = {"/signup"})
+
+	// 회원가입 get
+	@GetMapping(value = { "/signup" })
 	public String signupForm(ModelMap m) {
-		
+
 		MemberDTO dto = new MemberDTO();
 		m.addAttribute("memberDTO", dto);
-		
+
 		return "memberForm";
 	}
-	
-	//회원가입 post 정보 가져오기
+
+	// 회원가입 post 정보 가져오기
 	@PostMapping("/signup")
-	public String signup(@Valid MemberDTO  dto, BindingResult result) {
-		
-		if(result.hasErrors()) {
+	public String signup(@Valid MemberDTO dto, BindingResult result) {
+
+		if (result.hasErrors()) {
 			return "memberForm";
 		}
-		String encptPw = 
-				new BCryptPasswordEncoder().encode(dto.getPasswd());
+		String encptPw = new BCryptPasswordEncoder().encode(dto.getPasswd());
 		dto.setPasswd(encptPw);
-		//DB연동
+		// DB연동
 		logger.info("logger:signup:{}", dto);
-		
+
 		int n = memberService.memberAdd(dto);
-		
+
 		return "redirect:main";
 	}
-	
-	
+
 	@GetMapping("/mypage")
-	public String mypage( ModelMap m) {
-		
+	public String mypage(ModelMap m) {
+
 		// 세션에 저장된 MemberDTO 얻기
 //		MemberDTO dto = (MemberDTO)m.getAttribute("login");
 //		logger.info("logger:mypage:{}", dto);
 //		String userid = dto.getUserid();
-		
+
 //		MemberDTO searchDTO = memberService.mypage(userid);
 //		m.addAttribute("login", searchDTO);
-		
+
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		logger.info("logger:Authentication:{}", auth);
-		MemberDTO searchDTO= (MemberDTO)auth.getPrincipal();
+		MemberDTO searchDTO = (MemberDTO) auth.getPrincipal();
 		logger.info("logger:Member:{}", searchDTO);
 		m.addAttribute("login", searchDTO);
-		
+
 		return "mypage";
 	}
-	
+
 	@GetMapping("/cartList")
 	public String cartlist(ModelMap m) {
-		
+
 //		// 세션에 저장된 MemberDTO 얻기
 //		MemberDTO dto = (MemberDTO)m.getAttribute("login");
 //		logger.info("logger:mypage:{}", dto);
@@ -118,10 +114,19 @@ public class MemberController {
 //		   }else {
 //			   nextPage="login"; 
 //		}
-		
 
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		logger.info("logger:Authentication:{}", auth);
+		MemberDTO dto = (MemberDTO) auth.getPrincipal();
+		logger.info("logger:Member:{}", dto);
+		String userid = dto.getUserid();
+		List<CartDTO> cartList = cartService.cartList(userid);
+		m.addAttribute("cartList", cartList);
+		logger.info("logger:cartList:{}", cartList);
+
+		return "cartList";
 	}
-	
+
 //	@PostMapping("/cartAdd")
 //	public String cartAdd(@ModelAttribute CartDTO cartDTO, ModelMap m, BindingResult result) {
 //		MemberDTO dto = (MemberDTO)m.getAttribute("login");
@@ -137,34 +142,43 @@ public class MemberController {
 //		
 //		return "redirect:main";
 //	}
-	
-	
+
 	@PostMapping("/cartAdd")
 	public String cartAdd(@ModelAttribute CartDTO cartDTO, ModelMap m, BindingResult result) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		logger.info("logger:Authentication:{}", auth);
-		MemberDTO dto= (MemberDTO)auth.getPrincipal();
+		MemberDTO dto = (MemberDTO) auth.getPrincipal();
 		logger.info("logger:Member:{}", dto);
 		String userid = dto.getUserid();
-	  
-	    
-	        cartDTO.setUserid(dto.getUserid());
-	        logger.info("logger:userid:{}", dto);
-	    
-	    if (result.hasErrors()) {
-	        return "redirect:main";
-	    }
-	    
-	    int n = cartService.cartAdd(cartDTO);
-	    logger.info("logger:cartAdd:{}", cartDTO);
-	    return "redirect:main";
+
+		cartDTO.setUserid(dto.getUserid());
+		logger.info("logger:userid:{}", dto);
+
+		if (result.hasErrors()) {
+			return "redirect:main";
+		}
+
+		int n = cartService.cartAdd(cartDTO);
+		logger.info("logger:cartAdd:{}", cartDTO);
+		return "redirect:main";
 	}
-	
-	
+
+//	@PostMapping("/cartDelte")
+//	public String cartDelte(@ModelAttribute CartDTO cartDTO, ModelMap m, BindingResult result) {
+//		CartDTO dto = 
+//		int num = dto.getUserid();
+//
+//		cartDTO.setNum(dto.());
+//		logger.info("logger:userid:{}", dto);
+//
+//		if (result.hasErrors()) {
+//			return "redirect:main";
+//		}
+//		
+//		int n = cartService.cartDelte(cartDTO);
+//		logger.info("logger:cartAdd:{}", cartDTO);
+//		
+//		return "redirect:mypage";
+//	}
+
 }
-
-
-
-
-
-
