@@ -1,17 +1,22 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<div class="container">
-  <div class="row">
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+<div class="container mt-5">
+  <div class="row justify-content-center">
     <c:forEach var="dto" items="${goodsList}">
-	    <div class="col border border-dark m-4 w-80">
-	      <a href="goodsRetrieve?gCode=${dto.gCode}"> 
-			<img src="${dto.gImage}" width="200">
-		  </a>
-	       <div class="mt-4 fs-6">${dto.gName}</div>
-	       <div class="mt-2 fs-6">${dto.gContent}</div>
-	       <div class="mt-2 fs-6">${dto.gPrice}</div>
-	    </div>
+      <div class="col-md-3 col-sm-6 mb-4">
+        <div class="card h-100 border-0 shadow-sm">
+          <a href="goodsRetrieve?gCode=${dto.gCode}">
+            <img src="${dto.gImage}" class="card-img-top" alt="${dto.gName}">
+          </a>
+          <div class="card-body">
+            <h5 class="card-title">${dto.gName}</h5>
+            <p class="card-text">${dto.gContent}</p>
+            <p class="card-text font-weight-bold">${dto.gPrice}원</p>
+          </div>
+        </div>
+      </div>
     </c:forEach>
   </div>
 </div>

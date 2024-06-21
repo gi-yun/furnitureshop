@@ -166,6 +166,26 @@ public class MemberController {
 		logger.info("logger:cartAdd:{}", cartDTO);
 		return "redirect:main";
 	}// @PostMapping("/cartAdd")
+	
+	@PostMapping("/cartBuy")
+	public String cartbuy(@ModelAttribute CartDTO cartDTO, ModelMap m, BindingResult result) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		logger.info("logger:Authentication:{}", auth);
+		MemberDTO dto = (MemberDTO) auth.getPrincipal();
+		logger.info("logger:Member:{}", dto);
+		String userid = dto.getUserid();
+
+		cartDTO.setUserid(dto.getUserid());
+		logger.info("logger:userid:{}", dto);
+
+		if (result.hasErrors()) {
+			return "redirect:mypage";
+		}
+
+		int n = cartService.cartAdd(cartDTO);
+		logger.info("logger:cartAdd:{}", cartDTO);
+		return "redirect:cartList";
+	}// @PostMapping("/cartAdd")
 
 	@PostMapping("/cartDelete")
 	public ResponseEntity<String> cartDelete(@RequestParam("num") int num) {
@@ -183,5 +203,21 @@ public class MemberController {
 		}
 
 	}// @DeleteMapping("/cartDelete")
+	
+	 @PostMapping("/cartDeleteAll")
+	    public ResponseEntity<String> cartDeleteAll(@RequestParam("nums") List<Integer> nums) {
+	        logger.info("콘솔 확인 : nums ", nums);
+	        try {
+	            int result = cartService.cartDeleteAll(nums);
+	            if (result > 0) {
+	                return ResponseEntity.ok("Success");
+	            } else {
+	                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed");
+	            }
+	        } catch (Exception e) {
+	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Exception");
+	        }
+	    }// @PostMapping("/cartDeleteAll")
+	
 
 } // public class
