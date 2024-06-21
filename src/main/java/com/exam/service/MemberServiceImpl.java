@@ -36,4 +36,9 @@ public class MemberServiceImpl implements MemberService{
 		return memberMapper.mypage(userid);
 	}
 
+	@Override
+	public MemberDTO findId(String userid) {
+		return memberMapper.findId(userid);
+	}
+
 }

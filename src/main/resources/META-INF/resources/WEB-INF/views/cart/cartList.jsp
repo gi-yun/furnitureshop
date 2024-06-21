@@ -25,11 +25,12 @@
                     <tbody>
                       <c:set var="sum" value="0"/>
                       <c:forEach var="dto" items="${cartList}" varStatus="status">
+                      ${status.index+1}, ${status.count}, ${status.first}, ${status.last} <br>
                          <c:set var="amount" value="${dto.gAmount}"/>
                          <c:set var="sum" value="${dto.goodsList[0].gPrice * amount + sum}"/>
 						 <tr>
 						            <td><input type="checkbox" name="check"  class="check"></td> 
-					                <td>${dto.num}</td> 
+					                <td>${status.index+1}</td> 
                                     <td><img src="${dto.goodsList[0].gImage}" width="50" height="50" ></td>
                                     <td>${dto.gCode}&nbsp;/&nbsp;${dto.gSize}&nbsp;/&nbsp;${dto.gColor}</td>
                                     <td>${dto.goodsList[0].gPrice}</td>

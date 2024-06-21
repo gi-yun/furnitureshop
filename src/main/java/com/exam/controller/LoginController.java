@@ -16,7 +16,7 @@ import com.exam.dto.MemberDTO;
 import com.exam.service.MemberService;
 
 @Controller
-@SessionAttributes(names = {"login"})
+//@SessionAttributes(names = {"login"})
 public class LoginController {
 	
 	Logger logger = LoggerFactory.getLogger(getClass());
@@ -27,26 +27,41 @@ public class LoginController {
 		this.memberService = memberService;
 	}
 
-	@GetMapping("/login")
+	@GetMapping(value={"/login"})
 	public String loginForm() {
 		
 		return "loginForm";
 	}
 
-	@PostMapping("/login")
-	public String login(@RequestParam Map<String, String> m, 
-			           ModelMap model) {
-		
-		MemberDTO dto = memberService.login(m);
-		
-		if(dto!=null) {
-			// 세션에 저장
-			model.addAttribute("login", dto);  // sesssion scope에 저장
-			return "redirect:main";
-		}
-		model.addAttribute("errorMessage", "아이디 및 비번 확인 필요."); // request scope에 저장
-		return "loginForm";
+//	@PostMapping("/login")
+//	public String login(@RequestParam Map<String, String> m, 
+//			           ModelMap model) {
+//		
+//		MemberDTO dto = memberService.login(m);
+//		
+//		if(dto!=null) {
+//			// 세션에 저장
+//			model.addAttribute("log	in", dto);  // sesssion scope에 저장
+//			return "redirect:main";
+//		}
+//		model.addAttribute("errorMessage", "아이디 및 비번 확인 필요."); // request scope에 저장
+//		return "loginForm";
+//	}
+	
+	@PostMapping(value={"/login_fail"})
+	public String showlogin_failPage() {
+		logger.info("logger:showlogin_failPage ");
+		return "redirect:login";
 	}
+	
+	
+	@GetMapping(value={"/login_success"})
+	public String showlogin_successPage() {
+		logger.info("logger:showlogin_successPage ");
+		return "redirect:main";
+	}
+	
+	
 	
 	@GetMapping("/logout")
 	public String logout(SessionStatus status) {
