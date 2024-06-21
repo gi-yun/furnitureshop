@@ -48,9 +48,7 @@
 	                            <li class="nav-item">
 	                               <a class="nav-link" href="cartList">cartList</a>
 	                            </li>
-	                            </sec:authorize>
-	                     </ul>
-                        
+          
                         
                         
                     </nav>

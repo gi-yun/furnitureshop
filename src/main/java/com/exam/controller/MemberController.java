@@ -34,9 +34,6 @@ public class MemberController {
 	CartService cartService;
 	
 	
-
-
-
 	public MemberController(MemberService memberService, CartService cartService) {
 		super();
 		this.memberService = memberService;
@@ -122,17 +119,7 @@ public class MemberController {
 //			   nextPage="login"; 
 //		}
 		
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		logger.info("logger:Authentication:{}", auth);
-		MemberDTO dto= (MemberDTO)auth.getPrincipal();
-		logger.info("logger:Member:{}", dto);
-		String userid = dto.getUserid();
-		List<CartDTO> cartList = cartService.cartList(userid);
-		m.addAttribute("cartList", cartList);   
-		logger.info("logger:cartList:{}", cartList);
 
-		
-		return "cartList";
 	}
 	
 //	@PostMapping("/cartAdd")
@@ -164,8 +151,6 @@ public class MemberController {
 	        cartDTO.setUserid(dto.getUserid());
 	        logger.info("logger:userid:{}", dto);
 	    
-	    
-
 	    if (result.hasErrors()) {
 	        return "redirect:main";
 	    }
@@ -174,9 +159,6 @@ public class MemberController {
 	    logger.info("logger:cartAdd:{}", cartDTO);
 	    return "redirect:main";
 	}
-	
-	
-	
 	
 	
 }
