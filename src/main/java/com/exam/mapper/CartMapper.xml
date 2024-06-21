@@ -37,13 +37,13 @@
        where userid=#{userid}
     </select>
     
-    
-    <delete id="cartDelte" parameterType="int">
+    <!-- 장바구니 단일 제거 -->
+    <delete id="cartDelete" parameterType="int">
     DELETE FROM cart
     WHERE num = #{num}
 </delete>
     
-    <!-- 장바구니 제거 -->
+    
     
     
     

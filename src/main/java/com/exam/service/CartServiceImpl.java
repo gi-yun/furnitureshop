@@ -35,9 +35,9 @@ public class CartServiceImpl implements CartService{
 	}
 
 	@Override
-	public int cartDelte(int num) {
+	public int cartDelete(int num) {
 		
-		return cartMapper.cartDelte(num);
+		return cartMapper.cartDelete(num);
 	}
 
 

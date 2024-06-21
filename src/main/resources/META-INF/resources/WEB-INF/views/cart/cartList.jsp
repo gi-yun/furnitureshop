@@ -3,6 +3,29 @@
     pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
  <script src="webjars/jquery/3.7.1/jquery.min.js"></script>
+ 
+ <script>
+    $(document).ready(function() {
+        $("#delete").click(function() {
+            var num = $(this).data("num");
+            $.ajax({
+                url: "cartDelete",
+                type: "POST",
+                data: { num: num },
+                success: function(data, status, xhr) {
+                    alert("삭제되었습니다!");
+                    location.reload(); // 페이지 새로고침
+                },
+                error: function(xhr, status, error) {
+                    alert("삭제에 실패했습니다: " + xhr.responseText);
+                }
+            });
+        });
+    });
+</script>
+ 
+ 
+ 
   <div class="TodoApp">
     <div class="container">
             <div>
@@ -38,7 +61,7 @@
                                     <td>${amount}</td>
                                     <td>${dto.goodsList[0].gPrice * amount}</td>
                                     <td>${dto.gCartDate}</td>
-                                    <td> <a href="# " class="btn btn-warning" >Delete</a> </td>
+                                    <td><a href="javascript:void(0);" class="btn btn-warning delete-btn" data-num="${dto.num}" id="delete">Delete</a></td>
 						</tr>
 				      </c:forEach>
 					    <tr>
