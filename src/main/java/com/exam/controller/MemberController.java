@@ -33,9 +33,6 @@ public class MemberController {
 	CartService cartService;
 	
 	
-
-
-
 	public MemberController(MemberService memberService, CartService cartService) {
 		super();
 		this.memberService = memberService;
@@ -109,9 +106,7 @@ public class MemberController {
 		   }else {
 			   nextPage="login"; 
 		}
-			   
-		   
-		
+			   	
 		return nextPage;
 	}
 	
@@ -146,8 +141,6 @@ public class MemberController {
 	        return "redirect:main";
 	    }
 	    
-	    
-
 	    if (result.hasErrors()) {
 	        return "redirect:main";
 	    }
@@ -156,9 +149,6 @@ public class MemberController {
 	    logger.info("logger:cartAdd:{}", cartDTO);
 	    return "redirect:main";
 	}
-	
-	
-	
 	
 	
 }
