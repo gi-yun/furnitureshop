@@ -10,4 +10,5 @@ public interface MemberService {
 	public MemberDTO login(Map<String, String> map );
 	public MemberDTO mypage(String userid);
 	public MemberDTO findId(String userid);
+	public int updateMember(MemberDTO dto);
 }

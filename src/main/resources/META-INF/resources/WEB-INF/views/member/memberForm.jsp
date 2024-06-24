@@ -31,13 +31,22 @@
             });
         });
     });
+    //select 값 가져오기
+    function updateSelectedValue1() {
+        // 선택된 값 가져오기
+        var selectedValue  = document.getElementById("email3").value;
+        // 값을 채워 넣을 칸의 요소 가져오기
+        var email2 = document.getElementById("email2");
+        // 칸에 값 설정하기
+        email2.value = selectedValue;
+    }
 </script>
 
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <div class="container mt-5">
     <h2 class="mb-4">회원가입</h2>
-    <form:form class="row g-3" modelAttribute="memberDTO" method="post">
-        <div class="form-group col-md-6 mb-3">
+    <form:form modelAttribute="memberDTO" method="post">
+        <div class="form-group">
             <label for="userid">*아이디</label>
             <div class="input-group">
                 <form:input type="text" class="form-control" path="userid" />
@@ -48,24 +57,26 @@
             <small id="idcheck" class="form-text text-muted"></small>
         </div>
 
-        <div class="form-group col-md-6 mb-3">
+        <div class="form-group">
             <label for="password">*비밀번호</label>
             <form:input type="password" class="form-control" path="passwd" />
             <form:errors path="passwd" class="text-danger"/>
         </div>
 
-        <div class="form-group col-md-6 mb-3">
+        <div class="form-group">
             <label for="passwd2">비밀번호 확인</label>
             <input type="password" class="form-control" id="passwd2">
             <small id="pwdcheck" class="form-text"></small>
         </div>
 
-        <div class="form-group col-md-6 mb-3">
+        <div class="form-group">
             <label for="username">이름</label>
             <form:input type="text" class="form-control" path="username" />
         </div>
 
-        <div class="form-group col-md-6 mb-3">
+        <hr>
+
+        <div class="form-group">
             <label for="sample4_postcode">우편번호</label>
             <div class="input-group">
                 <input type="text" name="post" class="form-control" id="sample4_postcode" placeholder="우편번호">
@@ -75,18 +86,21 @@
             </div>
         </div>
 
-        <div class="form-group col-md-6 mb-3">
-            <label for="sample4_roadAddress">도로명 주소</label>
-            <input type="text" name="addr1" class="form-control" id="sample4_roadAddress" placeholder="도로명주소">
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="sample4_roadAddress">도로명 주소</label>
+                <input type="text" name="addr1" class="form-control" id="sample4_roadAddress" placeholder="도로명주소">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="sample4_jibunAddress">지번 주소</label>
+                <input type="text" name="addr2" class="form-control" id="sample4_jibunAddress" placeholder="지번주소">
+                <small id="guide" class="form-text text-muted"></small>
+            </div>
         </div>
 
-        <div class="form-group col-md-6 mb-3">
-            <label for="sample4_jibunAddress">지번 주소</label>
-            <input type="text" name="addr2" class="form-control" id="sample4_jibunAddress" placeholder="지번주소">
-            <small id="guide" class="form-text text-muted"></small>
-        </div>
+        <hr>
 
-        <div class="form-group col-md-6 mb-3">
+        <div class="form-group">
             <label for="phone1">전화번호</label>
             <div class="input-group">
                 <select name="phone1" class="custom-select" id="phone1">
@@ -98,7 +112,7 @@
             </div>
         </div>
 
-        <div class="form-group col-md-6 mb-3">
+        <div class="form-group">
             <label for="email1">이메일</label>
             <div class="input-group">
                 <input type="text" name="email1" class="form-control" id="email1" placeholder="이메일">
@@ -106,7 +120,7 @@
                     <span class="input-group-text">@</span>
                 </div>
                 <input type="text" name="email2" class="form-control" id="email2" placeholder="직접입력">
-                <select name="email3" class="custom-select" id="email3">
+                <select name="email3" class="custom-select" id="email3" onchange="updateSelectedValue1()">
                     <option value="daum.net">daum.net</option>
                     <option value="google.com">google.com</option>
                     <option value="naver.com">naver.com</option>
@@ -114,7 +128,7 @@
             </div>
         </div>
 
-        <div class="form-group col-12">
+        <div class="form-group">
             <button type="submit" class="btn btn-primary">Sign Up</button>
             <button type="reset" class="btn btn-secondary">Cancel</button>
         </div>

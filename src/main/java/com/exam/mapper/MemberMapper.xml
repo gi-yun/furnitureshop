@@ -43,6 +43,21 @@
       where userid=#{userid}
    </select>
    
+  <!-- 회원 정보 업데이트 -->
+	<update id="updateMember" parameterType="MemberDTO">
+		UPDATE member
+		SET post = #{post},
+		    addr1 = #{addr1},
+		    addr2 = #{addr2},
+		    phone1 = #{phone1},
+		    phone2 = #{phone2},
+		    phone3 = #{phone3},
+		    email1 = #{email1},
+		    email2 = #{email2}
+		WHERE userid = #{userid}
+	</update>
+   
+   
 </mapper>
 
 

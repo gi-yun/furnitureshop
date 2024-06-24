@@ -20,7 +20,11 @@ public class CartDTO {
 	List<GoodsDTO> goodsList;
 	
 	
-	public CartDTO() {}
+	public CartDTO() {
+        this.gCartDate = LocalDate.now(); // 기본 생성자에서 현재 날짜로 설정
+    }
+	
+//	public CartDTO() {}
 
 
 	public CartDTO(int num, String userid, String gCode, String gSize, String gColor, int gAmount, LocalDate gCartDate,
@@ -31,9 +35,21 @@ public class CartDTO {
 		this.gSize = gSize;
 		this.gColor = gColor;
 		this.gAmount = gAmount;
-		this.gCartDate = gCartDate;
+		this.gCartDate = gCartDate != null ? gCartDate : LocalDate.now(); // null이 아니면 주어진 날짜, null이면 현재 날짜
 		this.goodsList = goodsList;
 	}
+	
+//	public CartDTO(int num, String userid, String gCode, String gSize, String gColor, int gAmount, LocalDate gCartDate,
+//			List<GoodsDTO> goodsList) {
+//		this.num = num;
+//		this.userid = userid;
+//		this.gCode = gCode;
+//		this.gSize = gSize;
+//		this.gColor = gColor;
+//		this.gAmount = gAmount;
+//		this.gCartDate = gCartDate;
+//		this.goodsList = goodsList;
+//	}
 
 
 	public int getNum() {
@@ -96,14 +112,14 @@ public class CartDTO {
 	}
 
 
-	public LocalDate getgCartDate() {
-		return gCartDate;
-	}
-
-
-	public void setgCartDate(LocalDate gCartDate) {
-		this.gCartDate = gCartDate;
-	}
+//	public LocalDate getgCartDate() {
+//		return gCartDate;
+//	}
+//
+//
+//	public void setgCartDate(LocalDate gCartDate) {
+//		this.gCartDate = gCartDate;
+//	}
 
 
 	public List<GoodsDTO> getGoodsList() {
@@ -114,6 +130,14 @@ public class CartDTO {
 	public void setGoodsList(List<GoodsDTO> goodsList) {
 		this.goodsList = goodsList;
 	}
+	
+	public LocalDate getgCartDate() {
+        return gCartDate;
+    }
+
+    public void setgCartDate(LocalDate gCartDate) {
+        this.gCartDate = gCartDate;
+    }
 
 
 	@Override

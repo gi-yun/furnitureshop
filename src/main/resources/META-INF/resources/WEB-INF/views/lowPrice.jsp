@@ -30,10 +30,7 @@
     <jsp:include page="common/top.jsp" flush="true" /><br>
     <jsp:include page="common/menu.jsp" flush="true" />
     <hr>
-    <c:if test="${showMainBanner}">
-        <jsp:include page="goods/goodsList_banner.jsp" flush="true" />
-    </c:if>
-    <jsp:include page="goods/goodsList.jsp" flush="true" />
+    <jsp:include page="goods/lowPrice.jsp" flush="true" />
 </div>
 </body>
 </html>

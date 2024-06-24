@@ -1,25 +1,30 @@
 package com.exam.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.exam.dto.CartDTO;
 import com.exam.dto.MemberDTO;
@@ -156,6 +161,7 @@ public class MemberController {
 		String userid = dto.getUserid();
 
 		cartDTO.setUserid(dto.getUserid());
+		cartDTO.setgCartDate(LocalDate.now()); // 현재 날짜 설정
 		logger.info("logger:userid:{}", dto);
 
 		if (result.hasErrors()) {
@@ -185,7 +191,7 @@ public class MemberController {
 		int n = cartService.cartAdd(cartDTO);
 		logger.info("logger:cartAdd:{}", cartDTO);
 		return "redirect:cartList";
-	}// @PostMapping("/cartAdd")
+	}// @PostMapping("/cartBuy")
 
 	@PostMapping("/cartDelete")
 	public ResponseEntity<String> cartDelete(@RequestParam("num") int num) {
@@ -218,6 +224,87 @@ public class MemberController {
 	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Exception");
 	        }
 	    }// @PostMapping("/cartDeleteAll")
+	 
+	 
+//	 
+//	 @PostMapping("/updateMember")
+//		public String updateMember(@ModelAttribute MemberDTO memberDTO, ModelMap m, BindingResult result) {
+//			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//			logger.info("logger:Authentication:{}", auth);
+//			MemberDTO dto = (MemberDTO) auth.getPrincipal();
+//			logger.info("logger:Member:{}", dto);
+//
+//			memberDTO.setUserid(dto.getUserid());
+//			logger.info("logger:userid:{}", dto);
+//
+//			if (result.hasErrors()) {
+//				return "redirect:mypage";
+//			}
+//
+//			int n = memberService.updateMember(memberDTO);
+//			logger.info("logger:cartAdd:{}", memberDTO);
+//			return "redirect:main";
+//		}// ver.1 로그아웃후 다시 로그인하면 적용됨.
+	 
+	 
+		
+//		@PostMapping("/updateMember")
+//		public String update( MemberDTO dto, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+//		    if (bindingResult.hasErrors()) {
+//		        redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
+//		        return "redirect:mypage";  // Redirect back to the form with error messages
+//		    }
+//
+//		    try {
+//		    	logger.info("logger:update:{}", dto);
+//		        memberService.updateMember(dto);
+//		        redirectAttributes.addFlashAttribute("successMessage", "업데이트 성공!!");
+//		    } catch (Exception e) {
+//		        redirectAttributes.addFlashAttribute("errorMessage", "업데이트 실패했습니다..: " + e.getMessage());
+//		    }
+//
+//		    return "redirect:mypage";
+//		}  //ver.2 //실시간 적용이 안됨 로그아웃 후에 다시 로그인하면 정보가 적용
+		
 	
+	 
+	 
+	 
+	 
+	 
+	 
+	 @PostMapping("/updateMember")
+	    public String updateMember(@ModelAttribute MemberDTO memberDTO, BindingResult result, RedirectAttributes redirectAttributes) {
+	        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	        MemberDTO dto = (MemberDTO) auth.getPrincipal();
+	        
+	        memberDTO.setUserid(dto.getUserid());
+
+	        if (result.hasErrors()) {
+	            redirectAttributes.addFlashAttribute("errors", result.getAllErrors());
+	            return "redirect:mypage";
+	        }
+
+	        try {
+	            int n = memberService.updateMember(memberDTO);
+
+	            if (n > 0) {
+	                // 세션 업데이트
+	                UsernamePasswordAuthenticationToken newAuth = new UsernamePasswordAuthenticationToken(
+	                        memberDTO, auth.getCredentials(), auth.getAuthorities());
+	                SecurityContextHolder.getContext().setAuthentication(newAuth);
+
+	                redirectAttributes.addFlashAttribute("successMessage", "업데이트 성공!!");
+	            } else {
+	                redirectAttributes.addFlashAttribute("errorMessage", "업데이트 실패했습니다.");
+	            }
+	        } catch (Exception e) {
+	            redirectAttributes.addFlashAttribute("errorMessage", "업데이트 중 오류가 발생했습니다: " + e.getMessage());
+	        }
+
+	        return "redirect:main";
+	    } // ver.3 사용시 즉각즉각 업데이트가 됨. mypage에서 logout 시 모든 메모리가 삭제됨.
+
+
 
 } // public class
