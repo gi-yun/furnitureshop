@@ -15,10 +15,10 @@ public class SecurityFilterChainConfig {
 		
 		//1. 불필요한 인증제거
 		http.authorizeRequests()
-		    .antMatchers("/idCheck","/goodsRetrieve/**","/main","/login","/home","/signup","/webjars/**","/images/**").permitAll()
+		    .antMatchers("/lowPrice","/idCheck","/goodsRetrieve/**","/main","/login","/home","/signup","/webjars/**","/images/**").permitAll()
 		    .anyRequest()
 		    .authenticated();
-		
+			
 		
 		//2. csrf 비활성화
 		http.csrf().disable();
@@ -40,7 +40,8 @@ public class SecurityFilterChainConfig {
 		 http.logout()
 		     .logoutUrl("/logout")   // security가 자동으로 로그아웃 처리해주는 요청맵핑값
 		     .logoutSuccessUrl("/main");  // logout 성공시 리다이렉트 되는 요청맵핑값
-		     
+		 
+		 
 		return http.build();
 	}
 	

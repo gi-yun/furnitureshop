@@ -6,10 +6,11 @@
 <mapper namespace="com.exam.mapper.CartMapper">
  
     <!-- 장바구니 저장 -->
-    <insert id="cartAdd" parameterType="CartDTO">
-       insert into cart (userid, gCode, gSize, gColor, gAmount)
-       values (#{userid}, #{gCode}, #{gSize}, #{gColor}, #{gAmount} )
-    </insert>
+	<insert id="cartAdd" parameterType="CartDTO">
+		insert into cart (userid, gCode, gSize, gColor, gAmount, gCartDate)
+		values (#{userid}, #{gCode}, #{gSize}, #{gColor}, #{gAmount}, #{gCartDate})
+	</insert>
+
     <!-- 조인 -->
     <resultMap type="CartDTO" id="yyy">
        <id  property="num" column="num"/>

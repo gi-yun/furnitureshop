@@ -29,6 +29,11 @@
      where gCode = #{gCode}
    </select>
    
+   <!-- gPrice 기준으로 가격이 낮은 순으로 정렬된 상품 리스트를 조회하는 쿼리 -->
+    <select id="lowerPrice" resultType="GoodsDTO">
+        SELECT * FROM goods ORDER BY gPrice ASC;
+    </select>
+   
 </mapper>
 
 

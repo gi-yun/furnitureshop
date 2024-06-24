@@ -15,32 +15,52 @@ import com.exam.service.GoodsService;
 
 @Controller
 public class MainController {
-	
-	Logger logger = LoggerFactory.getLogger(getClass());
-	
-	GoodsService goodsService;
-	
-	public MainController(GoodsService goodsService) {
-		this.goodsService = goodsService;
-	}
+    
+    Logger logger = LoggerFactory.getLogger(getClass());
+    
+    GoodsService goodsService;
+    
+    public MainController(GoodsService goodsService) {
+        this.goodsService = goodsService;
+    }
 
+    @GetMapping("/main")
+    public String main(@RequestParam(required = false) String gCategory, ModelMap m) {
+        List<GoodsDTO> goodsList;
+        boolean showMainBanner = false;
 
-	@GetMapping("/main")
-	public String main(@RequestParam(required = false, defaultValue = "bed") String gCategory,
-			           ModelMap m) {
-		
-		List<GoodsDTO> goodsList = goodsService.goodsList(gCategory);
-		m.addAttribute("goodsList", goodsList);
-		return "main";
-	}
-	
-	@GetMapping("/goodsRetrieve")
-	public String goodsRetrieve(@RequestParam("gCode") String gCode,
-			           ModelMap m) {
-		
-		GoodsDTO goodsRetrieve = goodsService.goodsRetrieve(gCode);
-		m.addAttribute("goodsRetrieve", goodsRetrieve);
-		return "goodsRetrieve";
-	}
-	
+        if (gCategory == null || gCategory.isEmpty()) {
+            gCategory = "bed"; // Default category
+            showMainBanner = true;
+        }
+
+        goodsList = goodsService.goodsList(gCategory);
+        m.addAttribute("goodsList", goodsList);
+        m.addAttribute("showMainBanner", showMainBanner);
+        
+        return "main";
+    }
+    
+    @GetMapping("/lowPrice")
+    public String lowPrice(ModelMap m) {
+        List<GoodsDTO> goodsList;
+        
+
+        goodsList = goodsService.lowerPrice();
+        logger.info("lowPrice: ", goodsList);
+        m.addAttribute("lowPrice", goodsList);
+        
+        return "lowPrice";
+    }
+    
+    
+    
+    @GetMapping("/goodsRetrieve")
+    public String goodsRetrieve(@RequestParam("gCode") String gCode,
+                       ModelMap m) {
+        
+        GoodsDTO goodsRetrieve = goodsService.goodsRetrieve(gCode);
+        m.addAttribute("goodsRetrieve", goodsRetrieve);
+        return "goodsRetrieve";
+    }
 }

@@ -26,4 +26,10 @@ public class GoodsServiceImpl implements GoodsService{
 		return goodsMapper.goodsRetrieve(gCode);
 	}
 
+	@Override
+	public List<GoodsDTO> lowerPrice() {
+		
+		return goodsMapper.lowerPrice();
+	}
+
 }
