@@ -20,8 +20,8 @@
 | **DB** | MySQL (`ikea` 데이터베이스 사용) |
 | **뷰 엔진** | JSP (`/WEB-INF/views/*.jsp`) |
 | **보안** | Spring Security, BCrypt |
-| **PPT** | https://docs.google.com/presentation/d/1WRKsUNDwCdiiGVezDsLG_ndrnSKC18dF/edit?usp=sharing&ouid=103340559708893338520&rtpof=true&sd=true |
-| **시연영상**| https://drive.google.com/file/d/1O52XuXiZiDcKpo64gbevTdmtaNxTvamo/view?usp=sharing |
+| **PPT** | [PPT 링크](https://docs.google.com/presentation/d/1WRKsUNDwCdiiGVezDsLG_ndrnSKC18dF/edit?usp=sharing&ouid=103340559708893338520&rtpof=true&sd=true) |
+| **시연영상**| [시연영상 링크](https://drive.google.com/file/d/1O52XuXiZiDcKpo64gbevTdmtaNxTvamo/view?usp=sharing) |
 
 
 ---
