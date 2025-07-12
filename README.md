@@ -1,3 +1,4 @@
+
 # 🪑 IKEA 가구 쇼핑몰 프로젝트
 
 > **Spring MVC + Spring Security + MyBatis 기반 전자상거래 웹 프로젝트**  
@@ -5,6 +6,9 @@
 > 회원가입, 로그인, 상품 조회, 장바구니, 주문 등 기본적인 쇼핑몰 기능을 제공합니다.
 
 ---
+
+
+
 
 ## 🧑‍💻 프로젝트 개요
 
@@ -16,8 +20,24 @@
 | **DB** | MySQL (`ikea` 데이터베이스 사용) |
 | **뷰 엔진** | JSP (`/WEB-INF/views/*.jsp`) |
 | **보안** | Spring Security, BCrypt |
+| **PPT** | https://docs.google.com/presentation/d/1WRKsUNDwCdiiGVezDsLG_ndrnSKC18dF/edit?usp=sharing&ouid=103340559708893338520&rtpof=true&sd=true |
+| **시연영상**| https://drive.google.com/file/d/1O52XuXiZiDcKpo64gbevTdmtaNxTvamo/view?usp=sharing |
+
 
 ---
+
+## 홈페이지 시연 사진
+<img width="1089" height="679" alt="가구2" src="https://github.com/user-attachments/assets/5f9bc116-4c41-40c9-98f8-45b626a406d2" />
+<img width="860" height="547" alt="가구3" src="https://github.com/user-attachments/assets/492e1ef3-0033-49bb-b67b-70ad03b3e958" />
+<img width="1021" height="639" alt="가구5" src="https://github.com/user-attachments/assets/cf68db3f-f990-4b68-abd5-3ec53c814778" />
+<img width="1066" height="688" alt="가구1" src="https://github.com/user-attachments/assets/b3712d4f-c86d-4a8e-983d-81fb14a9a044" />
+
+---
+## 제작자
+- 김기윤
+- 박민지
+
+
 
 ## 📚 주요 기능
 
@@ -32,6 +52,10 @@
 
 ---
 
+## ERD
+<img width="1194" height="665" alt="가구erd" src="https://github.com/user-attachments/assets/809b9d72-8630-49eb-9aa2-299f0bbddb79" />
+
+---
 ## 📌 주요 API 명세
 
 ### 👤 `MemberController`
@@ -127,19 +151,32 @@
 | UI | JSP 기반의 직관적 화면 렌더링 |
 | 예외처리 | 로그인 실패, 중복 ID, 없는 상품 등 처리 |
 | 재사용성 | DTO, 서비스 인터페이스 분리로 재사용 가능 |
-| 응답속도 | 모든 조회/처리 기능 1초 내외 응답 목표 |
 
 ---
 
-## 🛍 더미 데이터 정보
 
-- `goods` 테이블에 약 **60개 IKEA 제품** 등록됨
-- 카테고리 구성:  
-  - `bed`, `sofa`, `cabinet`, `chiffonier`, `closet`, `mattress`
-- 이미지 링크: 실제 IKEA 웹사이트 이미지 URL 활용
-- 등록 파일: [`goods_202406240915.sql`](./goods_202406240915.sql)
-
----
 
 ## 🗂 프로젝트 디렉토리 구조
 
+```
+src/main/java/com/exam
+├── controller         # 컨트롤러 계층 (웹 요청 처리)
+├── service            # 서비스 계층 (비즈니스 로직)
+├── dto                # DTO 클래스
+├── mapper             # MyBatis Mapper 인터페이스
+├── security           # Spring Security 설정
+└── Application.java   # 프로젝트 진입점
+```
+
+---
+
+## 🔮 향후 개선 계획
+
+- ✅ Java 17 및 Spring Boot 기반으로 리팩토링 예정
+- ✅ Thymeleaf 또는 React 기반 UI 전환
+- ✅ 관리자 페이지, 결제 연동, 주문 이력 시스템 고도화
+- ✅ RESTful API 문서화 및 Swagger 도입 고려
+
+---
+
+> 이 프로젝트는 Java 웹 개발의 전체 흐름과 아키텍처를 학습하고자 하는 개발자를 위한 실습용 프로젝트입니다.
