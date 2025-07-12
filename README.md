@@ -1,4 +1,4 @@
-# 🛒 IKEA 가구 쇼핑몰 프로젝트
+# 🪑 IKEA 가구 쇼핑몰 프로젝트
 
 > **Spring MVC + Spring Security + MyBatis 기반 전자상거래 웹 프로젝트**  
 > 실제 IKEA 제품 데이터를 기반으로 한 쇼핑몰 기능 구현 프로젝트입니다.  
